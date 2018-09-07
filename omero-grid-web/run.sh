@@ -34,6 +34,18 @@ if [ ! -f $NGINX_OMERO ]; then
     $omero web config --http 8080 nginx > $NGINX_OMERO
 fi
 
+echo "Add the figure app to OMERO.web"
+$omero   config append omero.web.apps '"omero_figure"'
+
+echo "Display a link to 'Figure' at the top of the webclient"
+$omero config append omero.web.ui.top_links '["Figure", "figure_index", {"title": "Open Figure in new tab", "target": "_blank"}]'
+
+echo  "Add 'Figure' to the 'Open with' options, available from context menu on the webclient tree"
+$omero  config append omero.web.open_with '["omero_figure", "new_figure", {"supported_objects":["images"], "target": "_blank", "label": "OMERO.figure"}]'
+
+echo "Disable Version Checking from Omero Server"
+$omero config set omero.web.check_version false
+
 echo "Starting OMERO.web"
 $omero web start
 echo "Starting nginx"

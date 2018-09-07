@@ -28,6 +28,9 @@ RUN useradd omero && \
     #ln -sf /dev/stdout /var/log/nginx/access.log && \
     #ln -sf /dev/stderr /var/log/nginx/error.log && \
 
+#Installing Omero Figure
+RUN pip install omero-figure
+
 ARG OMERO_VERSION=latest
 ARG CI_SERVER
 ARG OMEGO_ARGS
